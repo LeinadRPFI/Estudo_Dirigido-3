@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <iomanip>
+#include <windows.h>
 
 using namespace std;
 
@@ -21,12 +22,26 @@ using namespace std;
 
     }
 
-    void gerador_aleatorio(int quant_dezenas ,int minimo, int limite){
+    void gerador_aleatorio(int quant_dezenas ,int minimo, int limite, int apostas){
+
+
+        int aux=0;
+
+    for(int j = 0; j < apostas; j++){
+
+        aux++;
+
+        cout << "Gerando os valores.... \n";
+
+        Sleep(1000);
+
 
         srand(time(NULL));
 
         int ax;
         vector <int> numeros;
+
+
 
         for(int i = 0; i < quant_dezenas; i++){
 
@@ -39,23 +54,33 @@ using namespace std;
                     numeros.push_back(ax);
                }
             else goto denovo;
+
         }
 
-        cout << "Numeros para a aposta : ";
+        cout << "Numeros para a " << aux << "Âª aposta : ";
 
             for(int i = 0; i < quant_dezenas; i++){
 
                 cout << numeros[i] << ", ";
 
+                if(i == 20) cout << endl;
+
             }
 
             cout << endl << endl;
 
+            for(int a = 0; a < numeros.size();a++){
+
+                numeros[a] = ' ';
+            }
+
+        }
     }
 
-    void mega_sena(){
+    void mega_sena(int apostas){
 
         int dezenas;
+        double total = 0;
 
         cout << "===== MEGA-SENA =====" << endl << endl;
 
@@ -67,21 +92,30 @@ using namespace std;
 
         cout << endl;
 
+
         if(dezenas >= 6 && dezenas <= 15)
 
-        gerador_aleatorio(dezenas, 1, 60);
+        gerador_aleatorio(dezenas, 1, 60, apostas);
 
         else goto digite_novamente;
 
-        vector <string> valor_aposta {"3,50", "24,50","98,00","294,00","735,00","1.617,00","3.234,00","6.006,00","10.510,50","17.517,50"};
+        vector <double> valor_aposta {3.50, 24.50 ,98, 294, 735, 1617, 3234, 6006, 10510.50, 17517.50};
 
-        cout << "O valor da sua aposta é: R$ " << valor_aposta[dezenas-6];
+
+        for(int i = 0; i < apostas; i++){
+
+        total = total + valor_aposta[dezenas-6];
+
+        }
+
+        cout << "O preÃ§o total das suas apostas Ã©: R$ " << fixed << setprecision(2) << total << endl;
 
     }
 
-    void quina(){
+    void quina(int apostas){
 
         int dezenas;
+        double total = 0;
 
         cout << "===== Quina ===== \n \n";
 
@@ -95,18 +129,25 @@ using namespace std;
 
         if(dezenas >= 5 && dezenas <= 15)
 
-        gerador_aleatorio(dezenas, 1 ,80);
+        gerador_aleatorio(dezenas, 1 ,80,apostas);
 
         else goto digite_novamente;
 
-        vector <string> valor_aposta {"1,50","9,00","31,50","84,00","189,00","378,00","693,00","1.188,00","1.930,50","3.003,00","4.504,50"};
+        vector <double> valor_aposta = {1.50 ,9 ,31.50,84 ,189,378 ,693 ,1188 ,1930.50 ,3003 ,4504.50};
 
-        cout << "O valor da sua aposta é: R$ " << valor_aposta[dezenas-5];
+
+        for(int i = 0; i < apostas; i++){
+
+        total = total + valor_aposta[dezenas-5];
+
+        }
+
+        cout << "O preÃ§o total das suas apostas Ã©: R$ " << fixed << setprecision(2) << total << endl;
 
 
     }
 
-    void lotomania(){
+    void lotomania(int apostas){
 
         int dezenas;
 
@@ -114,7 +155,7 @@ using namespace std;
 
         digite_novamente:
 
-        cout << "Voce deve apostar até no máximo 50 dezenas \n";
+        cout << "Voce deve apostar atÃ© no mÃ¡ximo 50 dezenas \n";
         cout << "Quantas dezenas desejas apostar? \n";
         cin >> dezenas;
 
@@ -122,20 +163,23 @@ using namespace std;
 
         if(dezenas > 0 && dezenas <= 50)
 
-        gerador_aleatorio(dezenas, 0 ,99);
+        gerador_aleatorio(dezenas, 0 ,99, apostas);
 
         else goto digite_novamente;
 
 
-        cout << "O valor da sua aposta é: R$ 1,50";
+        cout << "O valor total das suas apostas Ã©: R$ " << fixed << setprecision(2) << 1.5 * apostas;
+
+
 
     }
 
-    void lotofacil(){
+    void lotofacil(int apostas){
 
         int dezenas;
+        double total = 0;
 
-        cout << "===== Lotofácil ===== \n \n";
+        cout << "===== LotofÃ¡cil ===== \n \n";
 
         digite_novamente:
 
@@ -147,57 +191,69 @@ using namespace std;
 
         if(dezenas >= 15 && dezenas <= 18)
 
-        gerador_aleatorio(dezenas, 1 ,25);
+        gerador_aleatorio(dezenas, 1 ,25, apostas);
 
         else goto digite_novamente;
 
-        vector <string> valor_aposta {"2,00","32,00","272,00","1.632,00"};
+        vector <double> valor_aposta {2, 32, 272, 1632};
 
-        cout << "O valor da sua aposta é: R$ " << valor_aposta[dezenas-15];
+         for(int i = 0; i < apostas; i++){
+
+        total = total + valor_aposta[dezenas-15];
+
+        }
+
+        cout << "O preÃ§o total das suas apostas Ã©: R$ " << fixed << setprecision(2) << total << endl;
     }
 
     int main (){
 
         setlocale(LC_ALL,"Portuguese");
 
-        int escolha, dezenas;
+        int escolha, dezenas, apostas;
 
         cout << endl;
         cout << "       ========== Seja bem vindo ao gerador de apostas 4.0 ========== \n \n";
 
-        cout << "Olá usuário, você poderá jogar nos seguintes jogos: \n \n";
+        cout << "OlÃ¡ usuÃ¡rio, vocÃª poderÃ¡ jogar nos seguintes jogos: \n \n";
 
         cout << " 1. Mega-Sena \n";
         cout << " 2. Quina \n";
         cout << " 3. Lotomania \n";
-        cout << " 4. Lotofácil \n";
+        cout << " 4. LotofÃ¡cil \n";
 
         cout << endl;
 
-        cout << "Digite o número correspondente ao jogo que desejas jogar: ";
+
+        cout << "Digite o nÃºmero correspondente ao jogo que desejas jogar: ";
         cin >> escolha;
         cout << endl;
+
+        cout << "Quantas apostas desejas fazer? \n";
+        cin >> apostas;
+        cout << endl;
+
 
         switch(escolha) {
 
             case 1:
 
-                mega_sena();
+                mega_sena(apostas);
                 break;
 
             case 2:
 
-                quina();
+                quina(apostas);
                 break;
 
             case 3:
 
-                lotomania();
+                lotomania(apostas);
                 break;
 
             case 4:
 
-                lotofacil();
+                lotofacil(apostas);
                 break;
 
         }
