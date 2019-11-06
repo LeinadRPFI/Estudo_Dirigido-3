@@ -5,6 +5,7 @@
 #include <time.h>
 #include <iomanip>
 #include <windows.h>
+#include <algorithm>
 
 using namespace std;
 
@@ -56,6 +57,8 @@ using namespace std;
             else goto denovo;
 
         }
+        
+        sort(begin(numeros), end(numeros));
 
         cout << "Numeros para a " << aux << "ª aposta : ";
 
